@@ -2,25 +2,32 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.textInput = null;
+    this.setTextInputRef = element => {
+      this.textInput = element;
+    };
+    this.focusTextInput = () => {
+      // Focus the text input using the raw DOM API
+      if (this.textInput) this.textInput.focus();
+    };
+  }
+  componentWillMount() {
+    // autofocus the input on mount
+    this.focusTextInput();
+  }
 
-export default App;
+  render() {
+    return (
+      <div className="App">
+        Learn React
+        <input
+          type="text"
+          ref={this.setTextInputRef}
+        />
+      </div>
+    )  
+  }
+}
